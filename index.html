@@ -46,7 +46,7 @@ pre{white-space:pre-wrap;word-break:break-word;font:12.5px/1.5 var(--mono);backg
   <h1 id="h1"></h1>
   <p class="lede" id="lede"></p>
 </header>
-<nav><a href="#s1">The gap</a><a href="#s2">More time</a><a href="#s3">Size</a><a href="#s4">Where points go</a><a href="#s4b">Five failure modes</a><a href="#s5">How it works</a><a href="#s6">One job</a><a href="#s7">What it means</a><a href="#ax">Appendix</a></nav>
+<nav><a href="#s1">The gap</a><a href="#s2">More time</a><a href="#s3">Size</a><a href="#s4">Where points go</a><a href="#s4b">How it fails</a><a href="#s5">How it works</a><a href="#s6">One job</a><a href="#s7">What it means</a><a href="#ax">Appendix</a></nav>
 
 <section id="s1"><h2 id="h-s1"></h2>
   <div class="grid2"><div class="panel"><h3>Runs with full marks, out of 120</h3><div class="bars" id="b-full"></div></div>
@@ -65,15 +65,21 @@ pre{white-space:pre-wrap;word-break:break-word;font:12.5px/1.5 var(--mono);backg
   <div class="panel"><h3>What happened in each of the 120 runs (80 minute limit)</h3><div class="bars" id="b-out"></div>
   <div class="legend" id="lg-out"></div></div></section>
 
-<section id="s4b"><h2>Read step by step, Nemotron loses jobs in five ways the frontier models avoid.</h2>
-<p>We read Ultra's runs line by line on the 8 jobs where it trails the frontier most, and set each against Claude's run on the same job. These 8 are the widest gaps, not a random sample. Quotes are Nemotron's own notes from its run logs.</p>
+<section id="s4b"><h2>Read step by step, both Nemotron models lose jobs the same way: wrong records, unread rules, and a long fight with the tools.</h2>
+<p>We read every Super and Ultra run line by line on the 8 jobs where Nemotron trails the frontier most, and set each against Claude's full-marks run on the same job. These 8 are the widest gaps, not a random sample. Quotes are Nemotron's own notes from its run logs.</p>
+<div class="panel"><div class="tbl"><table>
+<thead><tr><th>What goes wrong</th><th>Super, jobs of 8</th><th>Ultra</th><th>Claude on the same jobs</th></tr></thead><tbody>
+<tr><td>Builds every number on the wrong table or log</td><td class="num">7</td><td>7 of 8</td><td>Finds the record the process itself writes before counting anything</td></tr>
+<tr><td>Does not apply the written rule it was pointed to</td><td class="num">6</td><td>seen on most of the 8</td><td>Reads the policy page and applies it</td></tr>
+<tr><td>Spends many steps just getting the tools to work</td><td class="num">8</td><td>seen on most of the 8</td><td>Gets connected early and spends its steps on the job</td></tr>
+<tr><td>Gives up after the first email or ticket error</td><td class="num">0</td><td>seen</td><td>Changes the format and retries</td></tr>
+<tr><td>Makes things up when stuck</td><td class="num">3</td><td>seen, more often</td><td>Not seen</td></tr>
+</tbody></table></div></div>
 <div class="grid2">
-<div class="panel"><h3>1. It builds on the wrong records</h3><p>On 7 of the 8 jobs, the first thing that breaks is which table or log it treats as the source. On one audit its three runs counted invitations, a log of requests, and users with an archived id, and reported 4, 598 and 2,746 runs. None is the record the process itself writes, so every number after it is wrong. Claude found that record before writing any figure.</p></div>
-<div class="panel"><h3>2. It skips the rule it was told to apply</h3><p>One run wrote <i>"I have enough information from the task description and Slack message to proceed"</i> and never opened the policy page that defines the answer. On two jobs, none of its runs read the policy at all. Claude opened the policy first on every job.</p></div>
-<div class="panel"><h3>3. It fights the tools</h3><p>The company's systems are reached through a standard tool interface. Nemotron sends raw web requests and spends dozens of steps on connection errors, often its own typing mistakes. By our count of its own notes, at least 3 of the first 15 steps go to getting connected in <span id="hs-super"></span> of Super's 120 runs and <span id="hs-ultra"></span> of Ultra's. The bill-history job below shows what that costs.</p></div>
-<div class="panel"><h3>4. It stops at the first error, so nothing gets sent</h3><p>When the email tool returned an error, Claude changed the format and sent it on the next try. Ultra wrote <i>"Email/Jira connectors have config issues."</i> and sent neither the email nor the ticket, losing every point that depends on them.</p></div>
-<div class="panel"><h3>5. When it is stuck, it makes things up</h3><p>It names database tables that never appeared in anything it was shown, writes a memo from <i>"simulated realistic findings"</i>, invents amounts and record ids, and reports deliverables as sent with no sign they went out.</p></div>
-<div class="panel"><h3>Why this matters for training</h3><p>Only one of the five is about these particular jobs (which table to use). The other four are general habits: handling tools, recovering from errors, reading the rules, and not inventing results. They show up on any job that runs inside a real company's systems.</p></div>
+<div class="panel"><h3>The wrong records</h3><p>On 7 of the 8 jobs, the first thing that breaks is which table or log Nemotron treats as the source, and every figure after it inherits the error. Super, on the bill-history job: <i>"I'm only finding send entries but not return entries."</i> On one audit Ultra's three runs counted three different things and reported three different totals, none of them right.</p></div>
+<div class="panel"><h3>The unread rule</h3><p>Each job points to the company policy that defines the answer. Super usually tries to read it, gets nothing back, and carries on from the task text instead: <i>"Confluence page bodies are null and attachments API keeps failing."</i> Ultra sometimes skips it outright: <i>"I have enough information from the task description and Slack message to proceed."</i></p></div>
+<div class="panel"><h3>The fight with the tools</h3><p>Nemotron sends raw web requests to the company's systems instead of using the standard client, and spends dozens of steps on connection errors, often its own typing mistakes: <i>"Python subprocess curl consistently fails while terminal curl works."</i> By our count of its own notes, at least 3 of the first 15 steps go to getting connected in <span id="hs-super"></span> of Super's 120 runs and <span id="hs-ultra"></span> of Ultra's.</p></div>
+<div class="panel"><h3>What Super fixed</h3><p>Super is better than Ultra in two ways. It never gave up after an email or ticket error; it kept trying until the message went out. Ultra wrote <i>"Email/Jira connectors have config issues."</i> and sent neither. Super also makes things up far less: 3 of 24 runs, against Ultra's invented tables and <i>"simulated realistic findings"</i>. What it did not fix is the first three: choosing the right records, applying the rule, and handling the tools.</p></div>
 </div></section>
 
 <section id="s5"><h2 id="h-s5"></h2><p id="p-s5"></p><div class="grid2" id="g-s5"></div></section>
