@@ -68,12 +68,12 @@ pre{white-space:pre-wrap;word-break:break-word;font:12.5px/1.5 var(--mono);backg
 <section id="s4b"><h2>Read step by step, both Nemotron models lose jobs the same way: wrong records, unread rules, and a long fight with the tools.</h2>
 <p>We read every Super, Ultra and Claude run line by line on the 8 jobs where Nemotron trails the frontier most, the same way for all three. On these 8 jobs Claude gets full marks on 21 of 24 runs, Super on 1 and Ultra on none. These 8 are the widest gaps, not a random sample. Quotes are Nemotron's own notes from its run logs.</p>
 <div class="panel"><div class="tbl"><table>
-<thead><tr><th>What goes wrong (jobs of 8 where it shows)</th><th>Super</th><th>Ultra</th><th>Claude</th></tr></thead><tbody>
-<tr><td>Builds every number on the wrong table or log</td><td class="num">7</td><td class="num">7</td><td class="num">0</td></tr>
-<tr><td>Does not apply the written rule it was pointed to</td><td class="num">6</td><td class="num">8</td><td class="num">0</td></tr>
+<thead><tr><th>How it fails (on how many of the 8 jobs)</th><th>Super</th><th>Ultra</th><th>Claude</th></tr></thead><tbody>
 <tr><td>Spends many steps just getting the tools to work</td><td class="num">8</td><td class="num">8</td><td class="num">0</td></tr>
-<tr><td>Gives up after the first email or ticket error</td><td class="num">0</td><td class="num">7</td><td class="num">0</td></tr>
+<tr><td>Does not apply the written rule it was pointed to</td><td class="num">6</td><td class="num">8</td><td class="num">0</td></tr>
+<tr><td>Builds every number on the wrong table or log</td><td class="num">7</td><td class="num">7</td><td class="num">0</td></tr>
 <tr><td>Makes things up when stuck</td><td class="num">3</td><td class="num">8</td><td class="num">0</td></tr>
+<tr><td>Gives up after the first email or ticket error</td><td class="num">0</td><td class="num">7</td><td class="num">0</td></tr>
 </tbody></table></div></div>
 <div class="grid2">
 <div class="panel"><h3>The wrong records</h3><p>On 7 of the 8 jobs, the first thing that breaks is which table or log Nemotron treats as the source, and every figure after it inherits the error. Super, on the bill-history job: <i>"I'm only finding send entries but not return entries."</i> On one audit Ultra's three runs counted three different things and reported three different totals, none of them right.</p></div>
