@@ -104,8 +104,8 @@ $('#b-time').innerHTML=tm.map(m=>`<div class="bar"><span><span class="dot" style
 $('#medmin').textContent=`the frontier models take ${rng(FR,s=>s.med_minutes??s.minutes)} minutes per run at the median${sup.med_minutes?`, Super ${fmt(sup.med_minutes)}`:''}.`;
 
 // s3 size
-if(ult){$('#h-s3').textContent=`The newer, smaller Super beats the older, larger Ultra, so the gap comes from training, not size.`;
-$('#p-s3').textContent=`Ultra is the larger model and ran at higher effort, yet it averages ${fmt(ult.mean,2)} with ${ult.full} full-marks run, against Super's ${fmt(sup.mean,2)} and ${sup.full}. Making the model bigger did not move it toward the frontier; what changed between the two generations did.`;
+if(ult){$('#h-s3').textContent=`Super is a quarter of Ultra's size and still beats it, so the gap to the frontier is not about size.`;
+$('#p-s3').textContent=`Ultra (Nemotron 3, 550 billion parameters) is more than four times the size of Super (Nemotron 3.5, 120 billion, released in October and trained from Ultra), and it ran at higher effort. Yet Ultra averages ${fmt(ult.mean,2)} with ${ult.full} full-marks run, against Super's ${fmt(sup.mean,2)} and ${sup.full}. A bigger model did not move Nemotron toward the frontier; the newer training did, and it still has most of the gap left to close.`;
 bars('#b-size',['Super','Ultra',...FR].map(m=>[m,a[m].mean]),1,v=>fmt(v,2));}
 
 // s4 outcomes
