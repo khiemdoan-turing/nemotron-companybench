@@ -42,11 +42,11 @@ pre{white-space:pre-wrap;word-break:break-word;font:12.5px/1.5 var(--mono);backg
 @media (max-width:620px){.bar{grid-template-columns:92px 1fr 92px}}
 </style></head><body><div class="wrap">
 <header style="display:grid;gap:12px">
-  <div class="eyebrow">Turing CompanyBench &middot; 40 real company jobs &middot; 3 runs per model per job</div>
+  <div class="eyebrow">Turing CompanyBench &middot; 40 tasks set in a real company &middot; 3 runs per model per task</div>
   <h1 id="h1"></h1>
   <p class="lede" id="lede"></p>
 </header>
-<nav><a href="deck/"><b>Slides</b></a><a href="#s1">The gap</a><a href="#s2">More time</a><a href="#s3">Size</a><a href="#s4">Where points go</a><a href="#s4b">How it fails</a><a href="#s5">How it works</a><a href="#s6">One job</a><a href="#s7">What it means</a><a href="#ax">Appendix</a></nav>
+<nav><a href="deck/"><b>Slides</b></a><a href="#s1">The gap</a><a href="#s2">More time</a><a href="#s3">Size</a><a href="#s4">Where points go</a><a href="#s4b">How it fails</a><a href="#s5">How it works</a><a href="#s6">One task</a><a href="#s7">What it means</a><a href="#ax">Appendix</a></nav>
 
 <section id="s1"><h2 id="h-s1"></h2>
   <div class="grid2"><div class="panel"><h3>Runs with full marks, out of 120</h3><div class="bars" id="b-full"></div></div>
@@ -65,10 +65,10 @@ pre{white-space:pre-wrap;word-break:break-word;font:12.5px/1.5 var(--mono);backg
   <div class="panel"><h3>What happened in each of the 120 runs (80 minute limit)</h3><div class="bars" id="b-out"></div>
   <div class="legend" id="lg-out"></div></div></section>
 
-<section id="s4b"><h2>Read step by step, both Nemotron models lose jobs the same way: wrong records, unread rules, and a long fight with the tools.</h2>
-<p>We read every Super, Ultra and Claude run line by line on the 8 jobs where Nemotron trails the frontier most, the same way for all three. On these 8 jobs Claude gets full marks on 21 of 24 runs, Super on 1 and Ultra on none. These 8 are the widest gaps, not a random sample. Quotes are Nemotron's own notes from its run logs.</p>
+<section id="s4b"><h2>Read step by step, both Nemotron models lose tasks the same way: wrong records, unread rules, and a long fight with the tools.</h2>
+<p>We read every Super, Ultra and Claude run line by line on the 8 tasks where Nemotron trails the frontier most, the same way for all three. On these 8 tasks Claude gets full marks on 21 of 24 runs, Super on 1 and Ultra on none. These 8 are the widest gaps, not a random sample. Quotes are Nemotron's own notes from its run logs.</p>
 <div class="panel"><div class="tbl"><table>
-<thead><tr><th>How it fails (on how many of the 8 jobs)</th><th>Super</th><th>Ultra</th><th>Claude</th></tr></thead><tbody>
+<thead><tr><th>How it fails (on how many of the 8 tasks)</th><th>Super</th><th>Ultra</th><th>Claude</th></tr></thead><tbody>
 <tr><td>Spends many steps just getting the tools to work</td><td class="num">8</td><td class="num">8</td><td class="num">0</td></tr>
 <tr><td>Does not apply the written rule it was pointed to</td><td class="num">6</td><td class="num">8</td><td class="num">0</td></tr>
 <tr><td>Builds every number on the wrong table or log</td><td class="num">7</td><td class="num">7</td><td class="num">0</td></tr>
@@ -76,10 +76,10 @@ pre{white-space:pre-wrap;word-break:break-word;font:12.5px/1.5 var(--mono);backg
 <tr><td>Gives up after the first email or ticket error</td><td class="num">0</td><td class="num">7</td><td class="num">0</td></tr>
 </tbody></table></div></div>
 <div class="grid2">
-<div class="panel"><h3>The wrong records</h3><p>On 7 of the 8 jobs, the first thing that breaks is which table or log Nemotron treats as the source, and every figure after it inherits the error. Super, on the bill-history job: <i>"I'm only finding send entries but not return entries."</i> On one audit Ultra's three runs counted three different things and reported three different totals, none of them right.</p></div>
-<div class="panel"><h3>The unread rule</h3><p>Each job points to the company policy that defines the answer. Super usually tries to read it, gets nothing back, and carries on from the task text instead: <i>"The Confluence page body isn't being returned through these tools."</i> Ultra sometimes skips it outright: <i>"I have enough information from the task description and Slack message to proceed."</i></p></div>
+<div class="panel"><h3>The wrong records</h3><p>On 7 of the 8 tasks, the first thing that breaks is which table or log Nemotron treats as the source, and every figure after it inherits the error. Super, on the bill-history task: <i>"I'm only finding send entries but not return entries."</i> On one audit Ultra's three runs counted three different things and reported three different totals, none of them right.</p></div>
+<div class="panel"><h3>The unread rule</h3><p>Each task points to the company policy that defines the answer. Super usually tries to read it, gets nothing back, and carries on from the task text instead: <i>"The Confluence page body isn't being returned through these tools."</i> Ultra sometimes skips it outright: <i>"I have enough information from the task description and Slack message to proceed."</i></p></div>
 <div class="panel"><h3>The fight with the tools</h3><p>Nemotron sends raw web requests to the company's systems instead of using the standard client, and spends dozens of steps on connection errors, often its own typing mistakes: <i>"Python subprocess curl consistently fails while terminal curl works."</i> By our count of its own notes, at least 3 of the first 15 steps go to getting connected in <span id="hs-super"></span> of Super's 120 runs and <span id="hs-ultra"></span> of Ultra's.</p></div>
-<div class="panel"><h3>What Super fixed</h3><p>Super is better than Ultra in two ways. It never gave up after an email or ticket error; it kept trying until the message went out. Ultra wrote <i>"Email/Jira connectors have config issues."</i> and sent neither. Super also makes things up far less: on 3 of the 8 jobs, against 8 for Ultra, whose runs invent tables and <i>"simulated realistic findings"</i>. What it did not fix is the first three: choosing the right records, applying the rule, and handling the tools.</p></div>
+<div class="panel"><h3>What Super fixed</h3><p>Super is better than Ultra in two ways. It never gave up after an email or ticket error; it kept trying until the message went out. Ultra wrote <i>"Email/Jira connectors have config issues."</i> and sent neither. Super also makes things up far less: on 3 of the 8 tasks, against 8 for Ultra, whose runs invent tables and <i>"simulated realistic findings"</i>. What it did not fix is the first three: choosing the right records, applying the rule, and handling the tools.</p></div>
 </div></section>
 
 <section id="s5"><h2 id="h-s5"></h2><p id="p-s5"></p><div class="grid2" id="g-s5"></div></section>
@@ -89,7 +89,7 @@ pre{white-space:pre-wrap;word-break:break-word;font:12.5px/1.5 var(--mono);backg
 <section id="s7"><h2>What this means for Nemotron</h2><div id="p-s7" style="display:grid;gap:10px"></div></section>
 
 <section id="ax"><div class="eyebrow">Appendix</div><h2>How the test works</h2><div id="setup" style="display:grid;gap:8px"></div>
-  <h3 style="margin-top:12px">Every job, every model, every run (80 minute limit)</h3>
+  <h3 style="margin-top:12px">Every task, every model, every run (80 minute limit)</h3>
   <div class="legend"><span><span class="sq" style="background:var(--good)"></span> full marks</span><span><span class="sq" style="background:var(--mid)"></span> half or more</span><span><span class="sq" style="background:var(--bad)"></span> under half</span><span><span class="sq to" style="background:var(--bad)"></span> outlined: hit the 80 minute limit</span></div>
   <div class="tbl"><table id="mx"></table></div></section>
 <p class="small" style="margin-top:20px" id="foot"></p>
@@ -106,12 +106,12 @@ function bars(el,rows,max,valFmt){$(el).innerHTML=rows.map(([m,v,lab])=>`<div cl
 const order=[...M].sort((x,y)=>a[y].full-a[x].full||a[y].mean-a[x].mean);
 
 // header + s1
-$('#h1').textContent=`Nemotron 3.5 Super gets full marks on ${sup.full} of ${sup.n} company jobs. Claude, GPT and Gemini get ${rng(F,s=>s.full)}.`;
-$('#lede').textContent=`We gave NVIDIA's newest Nemotron models the same 40 jobs a data analyst at a bank does every week, with the same tools, instructions and time limit as the frontier models. Super's average score is ${fmt(sup.mean,2)} out of 1.0; the frontier models average ${rng(F,s=>s.mean,2)}.${ult?` Nemotron 3 Ultra gets ${ult.full} of ${ult.n} and averages ${fmt(ult.mean,2)}.`:''}`;
-$('#h-s1').textContent=`On the same jobs, frontier models finish ${Math.round(Math.min(...F.map(m=>a[m].full))/Math.max(1,sup.full))} or more times as many runs with full marks.`;
+$('#h1').textContent=`Nemotron 3.5 Super gets full marks on ${sup.full} of ${sup.n} runs. Claude, GPT and Gemini get ${rng(F,s=>s.full)}.`;
+$('#lede').textContent=`We gave NVIDIA's newest Nemotron models the same 40 tasks a data analyst at a bank does every week, with the same tools, instructions and time limit as the frontier models. Super's average score is ${fmt(sup.mean,2)} out of 1.0; the frontier models average ${rng(F,s=>s.mean,2)}.${ult?` Nemotron 3 Ultra gets ${ult.full} of ${ult.n} and averages ${fmt(ult.mean,2)}.`:''}`;
+$('#h-s1').textContent=`On the same tasks, frontier models finish ${Math.round(Math.min(...F.map(m=>a[m].full))/Math.max(1,sup.full))} or more times as many runs with full marks.`;
 bars('#b-full',order.map(m=>[m,a[m].full,`${a[m].full} of ${a[m].n}`]),120);
 bars('#b-mean',order.map(m=>[m,a[m].mean]),1,v=>fmt(v,2));
-$('#n-s1').textContent='Full marks means every check the grader runs on the job passed. Bars are drawn to scale against all 120 runs.';
+$('#n-s1').textContent='Full marks means every check the grader runs on the task passed. Bars are drawn to scale against all 120 runs.';
 
 // s2 time
 const tm=['Super','Ultra','Argon'].filter(m=>a[m]&&lg[m]);
@@ -130,14 +130,14 @@ const cats=[['full','Full marks','var(--good)'],['partial','Delivered, partly ri
 $('#lg-out').innerHTML=cats.map(c=>`<span><span class="sq" style="background:${c[2]};width:12px;height:12px"></span> ${c[1]}</span>`).join('');
 $('#b-out').innerHTML=order.map(m=>{const s=a[m];return `<div class="bar"><span><span class="dot" style="background:${col(m)}"></span>${esc(L[m])}</span><div class="stack">${cats.map(c=>`<span title="${c[1]}: ${s[c[0]]}" style="width:${100*s[c[0]]/s.n}%;background:${c[2]}"></span>`).join('')}</div><span class="num">${s.full} / ${s.partial} / ${s.zero} / ${s.timeouts}</span></div>`}).join('');
 $('#h-s4').textContent=`Most of Super's runs finish inside the limit and still miss: ${sup.partial+sup.zero} of 120 end with partial credit or zero.`;
-$('#p-s4').textContent=`Frontier models land about half their runs or more at full marks. Super lands ${sup.full}. Running out of time explains ${sup.timeouts} of its misses; the other ${sup.partial+sup.zero} are runs that ended on their own and still fell short of what the job asked for.`;
+$('#p-s4').textContent=`Frontier models land about half their runs or more at full marks. Super lands ${sup.full}. Running out of time explains ${sup.timeouts} of its misses; the other ${sup.partial+sup.zero} are runs that ended on their own and still fell short of what the task asked for.`;
 
 $('#hs-super').textContent=String(D.hs?.Super??'');$('#hs-ultra').textContent=String(D.hs?.Ultra??'');
 // s5 behaviour
 const met=[['turns','Steps per run',0],['minutes','Minutes per run',1],['out_tok','Words written per run (output tokens)',0],['tool_calls','Tool calls per run',0]].filter(x=>sup[x[0]]!=null);
 const fav=FR.map(m=>a[m]);const fx=k=>sup[k]/(fav.reduce((s,v)=>s+(v[k]||0),0)/fav.length);
 if(met.length){$('#h-s5').textContent=`Super takes ${fmt(fx('turns'),1)} times the steps of the frontier models and still delivers less.`;
-$('#p-s5').textContent=`Averages per run on the same 40 jobs. Longer is not better here: the extra steps do not turn into points.`;
+$('#p-s5').textContent=`Averages per run on the same 40 tasks. Longer is not better here: the extra steps do not turn into points.`;
 $('#g-s5').innerHTML=met.map(([k,t,d])=>{const mx=Math.max(...order.map(m=>a[m][k]||0));return `<div class="panel"><h3>${t}</h3><div class="bars">${order.map(m=>`<div class="bar"><span><span class="dot" style="background:${col(m)}"></span>${esc(S[m]||L[m])}</span><div class="track"><div class="fill" style="width:${100*(a[m][k]||0)/mx}%;background:${col(m)}"></div></div><span class="num">${fmt(a[m][k],d)}</span></div>`).join('')}</div></div>`}).join('');}
 else{$('#h-s5').textContent='How Super spends a run';$('#p-s5').textContent='Step, time and token counts are being exported from the run logs.';}
 
@@ -145,22 +145,22 @@ else{$('#h-s5').textContent='How Super spends a run';$('#p-s5').textContent='Ste
 if(D.ex){const row=D.matrix.find(r=>r.alias===D.ex);
 const fx=D.fex.Fable||[],fm=fx.length?fx.reduce((s,r)=>s+(r.minutes||0),0)/fx.length:null,ft=fx.length?fx.reduce((s,r)=>s+(r.turns||0),0)/fx.length:null;
 const xl=D.exlog||[],xto=xl.filter(r=>r.timeout).length;
-$('#h-s6').textContent=xl.length?`On one job, Claude finishes in ${fmt(fm)} minutes. Super spends all ${fmt(xl[0].minutes)} of its minutes fighting the company's tools and runs out of time before the result goes out.`:`One job, side by side: ${row.title}.`;
-$('#p-s6').textContent=`The job: ${row.title.toLowerCase()}. A customer transfer shows the wrong history; the analyst has to find the rule, check the records, and send a memo by chat and email and file a ticket. Claude and both GPT models get full marks on all three tries in about ${fmt(ft)} steps. ${xl.length?`Super hits the 80 minute limit on ${xto} of its ${xl.length} tries. Its own notes, from its run log, show where the time goes:`:''}`;
-$('#ex').innerHTML=`<div class="panel"><div class="bars">${order.map(m=>{const c=row.cells[m]||[];return `<div class="bar"><span><span class="dot" style="background:${col(m)}"></span>${esc(L[m])}</span><div class="cellrow" style="justify-content:flex-start">${c.map(v=>`<span class="sq${v[1]?' to':''}" title="${v[0]}" style="background:${v[0]>=.9999?'var(--good)':v[0]>=.5?'var(--mid)':'var(--bad)'}"></span>`).join('')}</div><span class="num">${c.map(v=>fmt(v[0],2)).join(' &middot; ')}</span></div>`}).join('')}</div></div>${xl.map((r,i)=>`<div class="panel"><h3>Super, try ${i+1}: ${r.steps} steps, ${fmt(r.minutes)} minutes, score ${fmt(r.reward,2)}${r.timeout?', hit the limit':''}</h3><div class="small">First steps, in Super's words</div><ul style="margin:0;padding-left:18px">${r.first.map(n=>`<li>${esc(n)}</li>`).join('')}</ul><div class="small">Last steps before the clock ran out</div><ul style="margin:0;padding-left:18px">${r.last.map(n=>`<li>${esc(n)}</li>`).join('')}</ul></div>`).join('')}<details><summary>The job, as the model receives it</summary><pre>${esc(D.prompts[D.ex]||'')}</pre></details>`;}
+$('#h-s6').textContent=xl.length?`On one task, Claude finishes in ${fmt(fm)} minutes. Super spends all ${fmt(xl[0].minutes)} of its minutes fighting the company's tools and runs out of time before the result goes out.`:`One task, side by side: ${row.title}.`;
+$('#p-s6').textContent=`The task: ${row.title.toLowerCase()}. A customer transfer shows the wrong history; the analyst has to find the rule, check the records, and send a memo by chat and email and file a ticket. Claude and both GPT models get full marks on all three tries in about ${fmt(ft)} steps. ${xl.length?`Super hits the 80 minute limit on ${xto} of its ${xl.length} tries. Its own notes, from its run log, show where the time goes:`:''}`;
+$('#ex').innerHTML=`<div class="panel"><div class="bars">${order.map(m=>{const c=row.cells[m]||[];return `<div class="bar"><span><span class="dot" style="background:${col(m)}"></span>${esc(L[m])}</span><div class="cellrow" style="justify-content:flex-start">${c.map(v=>`<span class="sq${v[1]?' to':''}" title="${v[0]}" style="background:${v[0]>=.9999?'var(--good)':v[0]>=.5?'var(--mid)':'var(--bad)'}"></span>`).join('')}</div><span class="num">${c.map(v=>fmt(v[0],2)).join(' &middot; ')}</span></div>`}).join('')}</div></div>${xl.map((r,i)=>`<div class="panel"><h3>Super, try ${i+1}: ${r.steps} steps, ${fmt(r.minutes)} minutes, score ${fmt(r.reward,2)}${r.timeout?', hit the limit':''}</h3><div class="small">First steps, in Super's words</div><ul style="margin:0;padding-left:18px">${r.first.map(n=>`<li>${esc(n)}</li>`).join('')}</ul><div class="small">Last steps before the clock ran out</div><ul style="margin:0;padding-left:18px">${r.last.map(n=>`<li>${esc(n)}</li>`).join('')}</ul></div>`).join('')}<details><summary>The task, as the model receives it</summary><pre>${esc(D.prompts[D.ex]||'')}</pre></details>`;}
 
 // s7
 $('#p-s7').innerHTML=[
-`<p><b>The gap is in doing the job, not in speed or size.</b> Super spends much of its run on the mechanics: connecting to the company's systems, fixing its own commands, working out how to send a message. When it does finish, the result is usually partly wrong.</p>`,
-`<p><b>These jobs are what frontier labs train on.</b> Each is a real multi-step task inside a working company's systems: read the records, apply the written rules, and send the result to the right place. The grader checks each step, so every missed point traces to a specific mistake.</p>`,
-`<p><b>Next step:</b> we can share the full run logs for every Nemotron run here, and scope a set of these jobs aimed at the five ways Nemotron fails above.</p>`].join('');
+`<p><b>The gap is in doing the task, not in speed or size.</b> Super spends much of its run on the mechanics: connecting to the company's systems, fixing its own commands, working out how to send a message. When it does finish, the result is usually partly wrong.</p>`,
+`<p><b>These tasks are what frontier labs train on.</b> Each is a real multi-step task inside a working company's systems: read the records, apply the written rules, and send the result to the right place. The grader checks each step, so every missed point traces to a specific mistake.</p>`,
+`<p><b>Next step:</b> we can share the full run logs for every Nemotron run here, and scope a set of these tasks aimed at the five ways Nemotron fails above.</p>`].join('');
 
 // appendix
 $('#setup').innerHTML=[
-`<p><b>The jobs.</b> 40 tasks from Turing CompanyBench. Each puts the model inside a simulated bank with its records, chat, email and ticket tracker, and asks it to do a real analyst job end to end. A grader checks the result against the job's written requirements.</p>`,
-`<p><b>The setup.</b> Every model ran in the same agent harness (Terminus 2), with the same instructions, tools and sandbox, 3 times per job. The frontier numbers come from the Gemini 4 Argon comparison on the same 40 jobs.</p>`,
+`<p><b>The tasks.</b> 40 tasks from Turing CompanyBench. Each puts the model inside a simulated bank with its records, chat, email and ticket tracker, and asks it to do a real analyst task end to end. A grader checks the result against the task's written requirements.</p>`,
+`<p><b>The setup.</b> Every model ran in the same agent harness (Terminus 2), with the same instructions, tools and sandbox, 3 times per task. The frontier numbers come from the Gemini 4 Argon comparison on the same 40 tasks.</p>`,
 `<p><b>The clock.</b> 80 minutes per run by default, to keep the cost of a single run bounded. Runs that hit the limit were re-run with up to 5 hours for the "more time" view.</p>`,
 `<p><b>Reasoning effort.</b> High for every model except Super, which ran at medium, the highest Data OS offers for it.</p>`].join('');
-$('#mx').innerHTML='<thead><tr><th>Job</th>'+order.map(m=>`<th><span class="dot" style="background:${col(m)}"></span>${esc(S[m]||L[m])}</th>`).join('')+'</tr></thead><tbody>'+D.matrix.map(r=>`<tr><td>${esc(r.title)}</td>${order.map(m=>`<td><div class="cellrow">${(r.cells[m]||[]).map(v=>`<span class="sq${v[1]?' to':''}" title="${v[0]}" style="background:${v[0]>=.9999?'var(--good)':v[0]>=.5?'var(--mid)':'var(--bad)'}"></span>`).join('')}</div></td>`).join('')}</tr>`).join('')+'</tbody>';
+$('#mx').innerHTML='<thead><tr><th>Task</th>'+order.map(m=>`<th><span class="dot" style="background:${col(m)}"></span>${esc(S[m]||L[m])}</th>`).join('')+'</tr></thead><tbody>'+D.matrix.map(r=>`<tr><td>${esc(r.title)}</td>${order.map(m=>`<td><div class="cellrow">${(r.cells[m]||[]).map(v=>`<span class="sq${v[1]?' to':''}" title="${v[0]}" style="background:${v[0]>=.9999?'var(--good)':v[0]>=.5?'var(--mid)':'var(--bad)'}"></span>`).join('')}</div></td>`).join('')}</tr>`).join('')+'</tbody>';
 $('#foot').textContent=D.pending?`${D.pending} long re-runs were still running when this page was built and are not counted yet.`:'';
 </script></body></html>
